@@ -12,8 +12,8 @@ open class BookWrapper(
 
     companion object {
         const val BOOK_WRAPPER_CLASS = "BookWrapper"
-        const val BOOK_COL_ID = "id"
-        const val BOOK_COL_TITLE = "title"
-        const val BOOK_COL_DESCRIPTION = "description"
+        const val COL_ID = "id"
+        const val COL_TITLE = "title"
+        const val COL_DESCRIPTION = "description"
     }
 }
