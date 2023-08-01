@@ -3,8 +3,6 @@ package com.example.mykotlinrealm
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import io.realm.Realm
-import io.realm.RealmConfiguration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,23 +13,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Realm.init(this)
-        val config = RealmConfiguration.Builder()
-            .name("library")
-            .schemaVersion(1)
-            .migration { realm, oldVersion, newVersion ->
-
-                Log.d("aaa", "DefaultRealmDB: oldVersion:$oldVersion")
-                Log.d("aaa", "DefaultRealmDB: newVersion:$newVersion")
-                val schema = realm.schema
-                if (oldVersion == 0L) {
-                    schema.get(Account.ACCOUNT_CLASS)
-                        ?.addField(Account.COL_SUBTITLE, String::class.java)
-                }
-            }
-            .build()
-
-        Realm.setDefaultConfiguration(config)
+        val realmConfig = RealmConfig(this)
+        realmConfig.init()
 
 //        CoroutineScope(Dispatchers.IO).launch {
 //            initAccountSchemaOne()
