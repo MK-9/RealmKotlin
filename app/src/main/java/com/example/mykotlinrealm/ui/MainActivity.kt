@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mykotlinrealm.R
 import com.example.mykotlinrealm.local.dao.DefaultAccountDao
+import com.example.mykotlinrealm.local.dao.DefaultBookWrapperDao
 import com.example.mykotlinrealm.local.entity.Account
 import com.example.mykotlinrealm.local.realm.RealmConfig
 import kotlinx.coroutines.CoroutineScope
@@ -20,17 +21,17 @@ class MainActivity : AppCompatActivity() {
         val realmConfig = RealmConfig(this)
         realmConfig.init()
 
-//        CoroutineScope(Dispatchers.IO).launch {
-//            initAccountSchemaOne()
-//        }
-//
         CoroutineScope(Dispatchers.IO).launch {
-            for (account in getAccount()) {
-                withContext(Dispatchers.Main) {
-                    Log.d("Result: Account", "${account.title}")
-                }
-            }
+            initBookSchemaTwo()
         }
+//
+//        CoroutineScope(Dispatchers.IO).launch {
+//            for (account in getAccount()) {
+//                withContext(Dispatchers.Main) {
+//                    Log.d("Result: Account", "${account.title}")
+//                }
+//            }
+//        }
 
 
     }
@@ -58,6 +59,17 @@ class MainActivity : AppCompatActivity() {
         accountDao.insert(14, "n", "nn")
         accountDao.insert(15, "o", "oo")
         accountDao.insert(16, "p", "pp")
+    }
+
+    private suspend fun initBookSchemaTwo() {
+        val bookDao = DefaultBookWrapperDao()
+        bookDao.insertBook("a","aaaaaa")
+        bookDao.insertBook("b","bbbbbb")
+        bookDao.insertBook("c","cccccc")
+        bookDao.insertBook("d","dddddd")
+        bookDao.insertBook("e","eeeeee")
+        bookDao.insertBook("f","ffffff")
+        bookDao.insertBook("g","gggggg")
     }
 
     private suspend fun getAccount(): List<Account> {
