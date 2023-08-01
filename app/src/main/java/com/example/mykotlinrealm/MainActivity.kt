@@ -8,6 +8,7 @@ import io.realm.RealmConfiguration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,17 +33,17 @@ class MainActivity : AppCompatActivity() {
 
         Realm.setDefaultConfiguration(config)
 
-        CoroutineScope(Dispatchers.IO).launch {
-            initAccountSchemaOne()
-        }
-
 //        CoroutineScope(Dispatchers.IO).launch {
-//            for (account in getAccount()) {
-//                withContext(Dispatchers.Main) {
-//                    Log.d("Result: Account", "${account.title}")
-//                }
-//            }
+//            initAccountSchemaOne()
 //        }
+//
+        CoroutineScope(Dispatchers.IO).launch {
+            for (account in getAccount()) {
+                withContext(Dispatchers.Main) {
+                    Log.d("Result: Account", "${account.title}")
+                }
+            }
+        }
 
 
     }
