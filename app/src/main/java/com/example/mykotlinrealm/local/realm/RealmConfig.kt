@@ -29,7 +29,7 @@ class RealmConfig constructor(private val context: Context) {
 
     companion object {
         const val FILE_NAME = "library"
-        const val SCHEMA_VERSION = 1L
+        const val SCHEMA_VERSION = 2L
     }
 
 }
