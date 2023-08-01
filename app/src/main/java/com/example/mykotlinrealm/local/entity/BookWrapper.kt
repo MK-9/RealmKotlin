@@ -5,7 +5,7 @@ import io.realm.annotations.PrimaryKey
 
 open class BookWrapper(
     @PrimaryKey
-    var id: Int,
+    var id: Int = 0,
     var title: String? = null,
     var description: String? = null
 ) : RealmObject() {
