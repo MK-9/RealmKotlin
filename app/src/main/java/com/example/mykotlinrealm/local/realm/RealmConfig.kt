@@ -1,4 +1,4 @@
-package com.example.mykotlinrealm
+package com.example.mykotlinrealm.local.realm
 
 import android.content.Context
 import io.realm.Realm

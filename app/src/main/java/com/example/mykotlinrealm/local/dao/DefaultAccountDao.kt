@@ -1,5 +1,6 @@
-package com.example.mykotlinrealm
+package com.example.mykotlinrealm.local.dao
 
+import com.example.mykotlinrealm.local.entity.Account
 import io.realm.Realm
 import io.realm.RealmResults
 import kotlinx.coroutines.sync.Mutex

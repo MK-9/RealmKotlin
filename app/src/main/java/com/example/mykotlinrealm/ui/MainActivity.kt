@@ -1,8 +1,12 @@
-package com.example.mykotlinrealm
+package com.example.mykotlinrealm.ui
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.mykotlinrealm.R
+import com.example.mykotlinrealm.local.dao.DefaultAccountDao
+import com.example.mykotlinrealm.local.entity.Account
+import com.example.mykotlinrealm.local.realm.RealmConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

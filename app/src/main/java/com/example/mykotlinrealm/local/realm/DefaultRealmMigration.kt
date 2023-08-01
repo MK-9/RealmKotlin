@@ -1,6 +1,7 @@
-package com.example.mykotlinrealm
+package com.example.mykotlinrealm.local.realm
 
 import android.util.Log
+import com.example.mykotlinrealm.local.entity.Account
 import io.realm.DynamicRealm
 import io.realm.RealmMigration
 
