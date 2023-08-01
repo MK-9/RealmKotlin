@@ -9,12 +9,12 @@ class DefaultAccountDao : AccountDao {
 
     private val mutex = Mutex()
 
-    override suspend fun insert(userId: Int, title: String) {
+    override suspend fun insert(userId: Int, title: String, subtitle: String) {
         val realm = Realm.getDefaultInstance()
         mutex.withLock {
             try {
                 realm.beginTransaction()
-                val account = Account(getCount(realm).toInt(), userId, title)
+                val account = Account(getCount(realm).toInt(), userId, title, subtitle)
                 realm.insert(account)
                 realm.commitTransaction()
             } catch (e: Exception) {
