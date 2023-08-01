@@ -7,6 +7,7 @@ import com.example.mykotlinrealm.R
 import com.example.mykotlinrealm.local.dao.DefaultAccountDao
 import com.example.mykotlinrealm.local.dao.DefaultBookWrapperDao
 import com.example.mykotlinrealm.local.entity.Account
+import com.example.mykotlinrealm.local.entity.BookWrapper
 import com.example.mykotlinrealm.local.realm.RealmConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,17 +22,25 @@ class MainActivity : AppCompatActivity() {
         val realmConfig = RealmConfig(this)
         realmConfig.init()
 
-        CoroutineScope(Dispatchers.IO).launch {
-            initBookSchemaTwo()
-        }
-//
 //        CoroutineScope(Dispatchers.IO).launch {
-//            for (account in getAccount()) {
+//            initBookSchemaTwo()
+//        }
+
+//        CoroutineScope(Dispatchers.IO).launch {
+//            for (account in getAccounts()) {
 //                withContext(Dispatchers.Main) {
 //                    Log.d("Result: Account", "${account.title}")
 //                }
 //            }
 //        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            for (book in getBooks()) {
+                withContext(Dispatchers.Main) {
+                    Log.d("Result: Book", "${book.description}")
+                }
+            }
+        }
 
 
     }
@@ -72,9 +81,14 @@ class MainActivity : AppCompatActivity() {
         bookDao.insertBook("g","gggggg")
     }
 
-    private suspend fun getAccount(): List<Account> {
+    private suspend fun getAccounts(): List<Account> {
         val accountDao = DefaultAccountDao()
         return accountDao.getAccount()
+    }
+
+    private suspend fun getBooks(): List<BookWrapper> {
+        val bookDao = DefaultBookWrapperDao()
+        return bookDao.getBooks()
     }
 
 
