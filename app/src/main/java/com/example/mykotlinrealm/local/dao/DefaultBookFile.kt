@@ -1,26 +1,26 @@
 package com.example.mykotlinrealm.local.dao
 
-import com.example.mykotlinrealm.local.entity.BookWrapper
+import com.example.mykotlinrealm.local.entity.BookFile
 import io.realm.Realm
 import io.realm.RealmResults
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
-class DefaultBookWrapperDao : BookWrapperDao {
+class DefaultBookFile : BookFileDao {
     private val mutex = Mutex()
 
-    override suspend fun insertBook(title: String, description: String) {
+    override suspend fun insertBookFile(title: String, storagePath: String) {
         val realm = Realm.getDefaultInstance()
         mutex.withLock {
             try {
                 realm.beginTransaction()
                 val id = getCount(realm).toInt()
-                val book = BookWrapper(
+                val file = BookFile(
                     id,
                     title,
-                    description
+                    storagePath
                 )
-                realm.insert(book)
+                realm.insert(file)
                 realm.commitTransaction()
             } catch (e: Exception) {
                 realm.cancelTransaction()
@@ -31,17 +31,17 @@ class DefaultBookWrapperDao : BookWrapperDao {
     }
 
     private fun getCount(realm: Realm): Long {
-        val number: Number? = realm.where(BookWrapper::class.java).max(BookWrapper.COL_ID)
+        val number: Number? = realm.where(BookFile::class.java).max(BookFile.COL_ID)
         return (number?.toLong() ?: 0) + 1
     }
 
-    override suspend fun getBooks(): List<BookWrapper> {
+    override suspend fun getBookFiles(): List<BookFile> {
         val realm = Realm.getDefaultInstance()
         mutex.withLock {
             try {
-                val books: RealmResults<BookWrapper> =
-                    realm.where(BookWrapper::class.java).findAll()
-                return realm.copyFromRealm(books)
+                val files: RealmResults<BookFile> =
+                    realm.where(BookFile::class.java).findAll()
+                return realm.copyFromRealm(files)
             } catch (e: Exception) {
                 return arrayListOf()
             } finally {
