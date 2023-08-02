@@ -5,8 +5,10 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mykotlinrealm.R
 import com.example.mykotlinrealm.local.dao.DefaultAccountDao
+import com.example.mykotlinrealm.local.dao.DefaultBookFileDao
 import com.example.mykotlinrealm.local.dao.DefaultBookWrapperDao
 import com.example.mykotlinrealm.local.entity.Account
+import com.example.mykotlinrealm.local.entity.BookFile
 import com.example.mykotlinrealm.local.entity.BookWrapper
 import com.example.mykotlinrealm.local.realm.RealmConfig
 import kotlinx.coroutines.CoroutineScope
@@ -23,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         realmConfig.init()
 
 //        CoroutineScope(Dispatchers.IO).launch {
-//            initBookSchemaTwo()
+//            initBookSchemaThree()
 //        }
 
 //        CoroutineScope(Dispatchers.IO).launch {
@@ -34,14 +36,21 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 
+//        CoroutineScope(Dispatchers.IO).launch {
+//            for (book in getBooks()) {
+//                withContext(Dispatchers.Main) {
+//                    Log.d("Result: Book", "${book.description}")
+//                }
+//            }
+//        }
+
         CoroutineScope(Dispatchers.IO).launch {
-            for (book in getBooks()) {
+            for (book in getBookFiles()) {
                 withContext(Dispatchers.Main) {
-                    Log.d("Result: Book", "${book.description}")
+                    Log.d("Result: BookFile", "${book.storagePath}")
                 }
             }
         }
-
 
     }
 
@@ -72,14 +81,26 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun initBookSchemaTwo() {
         val bookDao = DefaultBookWrapperDao()
-        bookDao.insertBook("a","aaaaaa")
-        bookDao.insertBook("b","bbbbbb")
-        bookDao.insertBook("c","cccccc")
-        bookDao.insertBook("d","dddddd")
-        bookDao.insertBook("e","eeeeee")
-        bookDao.insertBook("f","ffffff")
-        bookDao.insertBook("g","gggggg")
+        bookDao.insertBook("a", "aaaaaa")
+        bookDao.insertBook("b", "bbbbbb")
+        bookDao.insertBook("c", "cccccc")
+        bookDao.insertBook("d", "dddddd")
+        bookDao.insertBook("e", "eeeeee")
+        bookDao.insertBook("f", "ffffff")
+        bookDao.insertBook("g", "gggggg")
     }
+
+    private suspend fun initBookSchemaThree() {
+        val bookDao = DefaultBookFileDao()
+        bookDao.insertBookFile("a", "C:\\Users\\Mking\\OneDrive\\Desktop\\aaaaa.realm")
+        bookDao.insertBookFile("b", "C:\\Users\\Mking\\OneDrive\\Desktop\\bbbbbb.realm")
+        bookDao.insertBookFile("c", "C:\\Users\\Mking\\OneDrive\\Desktop\\cccccc.realm ")
+        bookDao.insertBookFile("d", "C:\\Users\\Mking\\OneDrive\\Desktop\\dddddd.realm")
+        bookDao.insertBookFile("e", "C:\\Users\\Mking\\OneDrive\\Desktop\\eeeeee.realm")
+        bookDao.insertBookFile("f", "C:\\Users\\Mking\\OneDrive\\Desktop\\ffffff.realm")
+        bookDao.insertBookFile("g", "C:\\Users\\Mking\\OneDrive\\Desktop\\gggggg.realm")
+    }
+
 
     private suspend fun getAccounts(): List<Account> {
         val accountDao = DefaultAccountDao()
@@ -89,6 +110,11 @@ class MainActivity : AppCompatActivity() {
     private suspend fun getBooks(): List<BookWrapper> {
         val bookDao = DefaultBookWrapperDao()
         return bookDao.getBooks()
+    }
+
+    private suspend fun getBookFiles(): List<BookFile> {
+        val bookFileDao = DefaultBookFileDao()
+        return bookFileDao.getBookFiles()
     }
 
 
