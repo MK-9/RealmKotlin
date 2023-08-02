@@ -6,7 +6,7 @@ import io.realm.RealmResults
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
-class DefaultBookFile : BookFileDao {
+class DefaultBookFileDao : BookFileDao {
     private val mutex = Mutex()
 
     override suspend fun insertBookFile(title: String, storagePath: String) {

@@ -3,7 +3,7 @@ package com.example.mykotlinrealm.local.entity
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 
-class BookFile(
+open class BookFile(
     @PrimaryKey var id: Int = 0,
     var title: String? = null,
     var storagePath: String? = null
