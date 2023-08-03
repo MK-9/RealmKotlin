@@ -2,7 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-parcelize'
+
+//realm java
 apply plugin: 'realm-android'
+
+//realm kotlin
+apply plugin: "io.realm.kotlin"
 
 android {
     namespace 'com.example.mykotlinrealm'
@@ -49,4 +54,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.7.1"
+
+    implementation 'io.realm.kotlin:library-base:1.10.2' // Add to use local realm (no sync)
+
 }
