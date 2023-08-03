@@ -23,7 +23,7 @@ class RealmConfig constructor(private val context: Context) {
         return RealmConfiguration.Builder()
             .name(FILE_NAME)
             .schemaVersion(SCHEMA_VERSION)
-            .migration(DefaultRealmMigration())
+            .migration(DefaultRealmJavaMigration())
             .build()
     }
 

@@ -7,7 +7,7 @@ import com.example.mykotlinrealm.local.realm.migration.MigrationToV3
 import io.realm.DynamicRealm
 import io.realm.RealmMigration
 
-class DefaultRealmMigration : RealmMigration {
+class DefaultRealmJavaMigration : RealmMigration {
     override fun migrate(realm: DynamicRealm, oldVersion: Long, newVersion: Long) {
         Log.d(
             "aaa", "DefaultRealmDB: oldVersion:$oldVersion, newVersion:$newVersion"
