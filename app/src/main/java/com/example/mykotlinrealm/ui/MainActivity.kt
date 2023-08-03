@@ -1,7 +1,6 @@
 package com.example.mykotlinrealm.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mykotlinrealm.R
 import com.example.mykotlinrealm.local.dao.DefaultAccountDao
@@ -11,24 +10,21 @@ import com.example.mykotlinrealm.local.entity.Account
 import com.example.mykotlinrealm.local.entity.BookFile
 import com.example.mykotlinrealm.local.entity.BookWrapper
 import com.example.mykotlinrealm.local.realm.RealmConfig
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
+
+    private var realmConfig: RealmConfig? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val realmConfig = RealmConfig(this)
-        realmConfig.init()
+        realmConfig = RealmConfig(this)
+        realmConfig?.initRealm()
 
-        CoroutineScope(Dispatchers.IO).launch {
-            initAccountSchemaOne()
-            initBookSchemaTwo()
-            initBookSchemaThree()
-        }
+//        CoroutineScope(Dispatchers.IO).launch {
+//            initBookmarkSchemaFour()
+//        }
 
 //        CoroutineScope(Dispatchers.IO).launch {
 //            for (account in getAccounts()) {
@@ -46,14 +42,13 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 
-        CoroutineScope(Dispatchers.IO).launch {
-            for (book in getBookFiles()) {
-                withContext(Dispatchers.Main) {
-                    Log.d("Result: BookFile", "${book.storagePath}")
-                }
-            }
-        }
-
+//        CoroutineScope(Dispatchers.IO).launch {
+//            for (book in getBooMarks()) {
+//                withContext(Dispatchers.Main) {
+//                    Log.d("Result: BookMark", "${book.subtitle}")
+//                }
+//            }
+//        }
     }
 
     private suspend fun initAccountSchemaZero() {
@@ -103,6 +98,16 @@ class MainActivity : AppCompatActivity() {
         bookDao.insertBookFile("g", "C:\\Users\\Mking\\OneDrive\\Desktop\\gggggg.realm")
     }
 
+//    private suspend fun initBookmarkSchemaFour() {
+//        val bookDao = DefaultBookMarkDao(realmConfig?.realmKotlin)
+//        bookDao.insertBookMark("b", "bbbbbb")
+//        bookDao.insertBookMark("c", "cccccc")
+//        bookDao.insertBookMark("d", "dddddd")
+//        bookDao.insertBookMark("e", "eeeeee")
+//        bookDao.insertBookMark("f", "ffffff")
+//        bookDao.insertBookMark("g", "gggggg")
+//    }
+
 
     private suspend fun getAccounts(): List<Account> {
         val accountDao = DefaultAccountDao()
@@ -119,5 +124,8 @@ class MainActivity : AppCompatActivity() {
         return bookFileDao.getBookFiles()
     }
 
-
+//    private suspend fun getBooMarks(): List<NewBookWrapper> {
+//        val bookMarkDao = DefaultBookMarkDao(realmConfig?.realmKotlin)
+//        return bookMarkDao.getBookMarks()
+//    }
 }
