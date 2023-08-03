@@ -24,9 +24,11 @@ class MainActivity : AppCompatActivity() {
         val realmConfig = RealmConfig(this)
         realmConfig.init()
 
-//        CoroutineScope(Dispatchers.IO).launch {
-//            initBookSchemaThree()
-//        }
+        CoroutineScope(Dispatchers.IO).launch {
+            initAccountSchemaOne()
+            initBookSchemaTwo()
+            initBookSchemaThree()
+        }
 
 //        CoroutineScope(Dispatchers.IO).launch {
 //            for (account in getAccounts()) {
