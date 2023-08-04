@@ -1,4 +1,4 @@
-package com.example.mykotlinrealm.local.realm
+package com.example.mykotlinrealm.local.realm.config.newRealm
 
 import com.example.mykotlinrealm.local.entity.BookWrapper
 import com.example.mykotlinrealm.local.entity.NewBookWrapper

@@ -9,7 +9,7 @@ import com.example.mykotlinrealm.local.dao.DefaultBookWrapperDao
 import com.example.mykotlinrealm.local.entity.Account
 import com.example.mykotlinrealm.local.entity.BookFile
 import com.example.mykotlinrealm.local.entity.BookWrapper
-import com.example.mykotlinrealm.local.realm.RealmConfig
+import com.example.mykotlinrealm.local.realm.config.RealmConfig
 
 class MainActivity : AppCompatActivity() {
 

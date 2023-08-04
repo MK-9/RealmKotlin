@@ -1,4 +1,4 @@
-package com.example.mykotlinrealm.local.realm
+package com.example.mykotlinrealm.local.realm.config.oldRealm
 
 import android.util.Log
 import com.example.mykotlinrealm.local.realm.migration.MigrationToV1
