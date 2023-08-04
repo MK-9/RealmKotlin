@@ -6,10 +6,14 @@ import com.example.mykotlinrealm.R
 import com.example.mykotlinrealm.local.dao.DefaultAccountDao
 import com.example.mykotlinrealm.local.dao.DefaultBookFileDao
 import com.example.mykotlinrealm.local.dao.DefaultBookWrapperDao
+import com.example.mykotlinrealm.local.dao.DefaultNewBookWrapperDao
 import com.example.mykotlinrealm.local.entity.Account
 import com.example.mykotlinrealm.local.entity.BookFile
 import com.example.mykotlinrealm.local.entity.BookWrapper
 import com.example.mykotlinrealm.local.realm.config.RealmConfig
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,9 +26,9 @@ class MainActivity : AppCompatActivity() {
         realmConfig = RealmConfig(this)
         realmConfig?.initRealm()
 
-//        CoroutineScope(Dispatchers.IO).launch {
-//            initBookmarkSchemaFour()
-//        }
+        CoroutineScope(Dispatchers.IO).launch {
+            initBook()
+        }
 
 //        CoroutineScope(Dispatchers.IO).launch {
 //            for (account in getAccounts()) {
@@ -96,6 +100,17 @@ class MainActivity : AppCompatActivity() {
         bookDao.insertBookFile("e", "C:\\Users\\Mking\\OneDrive\\Desktop\\eeeeee.realm")
         bookDao.insertBookFile("f", "C:\\Users\\Mking\\OneDrive\\Desktop\\ffffff.realm")
         bookDao.insertBookFile("g", "C:\\Users\\Mking\\OneDrive\\Desktop\\gggggg.realm")
+    }
+
+    private suspend fun initBook() {
+        val bookDao = DefaultNewBookWrapperDao(realmConfig?.getRealmKotlinInstance())
+        bookDao.insertBook("h", "C:\\Users\\Mking\\OneDrive\\Desktop\\h.realm")
+        bookDao.insertBook("i", "C:\\Users\\Mking\\OneDrive\\Desktop\\i.realm")
+        bookDao.insertBook("k", "C:\\Users\\Mking\\OneDrive\\Desktop\\k.realm ")
+        bookDao.insertBook("l", "C:\\Users\\Mking\\OneDrive\\Desktop\\l.realm")
+        bookDao.insertBook("m", "C:\\Users\\Mking\\OneDrive\\Desktop\\m.realm")
+        bookDao.insertBook("n", "C:\\Users\\Mking\\OneDrive\\Desktop\\n.realm")
+        bookDao.insertBook("o", "C:\\Users\\Mking\\OneDrive\\Desktop\\o.realm")
     }
 
 //    private suspend fun initBookmarkSchemaFour() {
