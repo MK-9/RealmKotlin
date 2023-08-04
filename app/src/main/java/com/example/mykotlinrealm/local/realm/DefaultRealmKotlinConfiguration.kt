@@ -13,25 +13,28 @@ class DefaultRealmKotlinConfiguration : AutomaticSchemaMigration {
         val newRealm = migrationContext.newRealm
 
         val schemaVersion = oldRealm.schemaVersion()
-        var oldVersion = schemaVersion
+        var oldVersion: Int = schemaVersion.toInt()
 
-        val oldBooks = oldRealm.query(BookWrapper.BOOK_WRAPPER_CLASS).find()
-        for (book in oldBooks) {
-            val id = book.getValue(BookWrapper.COL_ID, Long::class)
-            val title = book.getNullableValue(BookWrapper.COL_TITLE, String::class)
-            val description = book.getNullableValue(BookWrapper.COL_DESCRIPTION, String::class)
+        if (oldVersion == 3) {
+            val oldBooks = oldRealm.query(BookWrapper.BOOK_WRAPPER_CLASS).find()
+            for (book in oldBooks) {
+                val id = book.getValue(BookWrapper.COL_ID, Long::class)
+                val title = book.getNullableValue(BookWrapper.COL_TITLE, String::class)
+                val description = book.getNullableValue(BookWrapper.COL_DESCRIPTION, String::class)
 
-            val dynamicRealmObject =
-                DynamicMutableRealmObject.create(
-                    type = NewBookWrapper.BOOK_WRAPPER_CLASS,
-                    properties = mapOf(
-                        NewBookWrapper.COL_ID to id,
-                        NewBookWrapper.COL_TITLE to title,
-                        NewBookWrapper.COL_DESCRIPTION to description
+                val dynamicRealmObject =
+                    DynamicMutableRealmObject.create(
+                        type = NewBookWrapper.BOOK_WRAPPER_CLASS,
+                        properties = mapOf(
+                            NewBookWrapper.COL_ID to id,
+                            NewBookWrapper.COL_TITLE to title,
+                            NewBookWrapper.COL_DESCRIPTION to description
+                        )
                     )
-                )
-            newRealm.copyToRealm(dynamicRealmObject)
+                newRealm.copyToRealm(dynamicRealmObject)
+            }
         }
+
 
 //        migrationContext.enumerate(BookWrapper.BOOK_WRAPPER_CLASS) { oldObject: DynamicRealmObject,
 //                                                                     newObject: DynamicMutableRealmObject? ->
